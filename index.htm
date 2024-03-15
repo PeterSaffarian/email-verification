@@ -39,11 +39,16 @@
             if (uuid) {
                 fetch('https://hooks.zapier.com/hooks/catch/16360223/30cmtln/', {
                     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ uuid: uuid })
-}).then(response => response.json())
-.then(data => console.log(data))
-.catch(error => console.error('Error:', error));
+    headers: {
+        'Content-Type': 'application/json', // This tells the server that you're sending JSON
+    },
+    body: JSON.stringify({
+        uuid: uuid // Your UUID data
+    })
+})
+.then(response => response.json())
+.then(data => console.log('Success:', data))
+.catch((error) => console.error('Error:', error));
             }
             } else {
                 document.body.innerHTML += '<p>Verification code is missing.</p>';
