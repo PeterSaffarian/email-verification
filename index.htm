@@ -32,28 +32,36 @@
 </head>
 <body>
     <br><br><h1>Thank you for joining Hypha</h1><br>
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const params = new URLSearchParams(window.location.search);
-            const uuid = params.get('uuid');
-            if (uuid) {
-                fetch('https://hooks.zapier.com/hooks/catch/16360223/30ci1xe/', {
-                    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json', // This tells the server that you're sending JSON
-    },
-    body: JSON.stringify({
-        uuid: uuid // Your UUID data
-    })
-})
-.then(response => response.json())
-.then(data => console.log('Success:', data))
-.catch((error) => console.error('Error:', error));
-            }
-            } else {
-                document.body.innerHTML += '<p>Verification code is missing.</p>';
-            }
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const params = new URLSearchParams(window.location.search);
+    const uuid = params.get('uuid');
+    if (uuid) {
+        fetch('https://hooks.zapier.com/hooks/catch/16360223/30ci1xe/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json', // This tells the server that you're sending JSON
+            },
+            body: JSON.stringify({
+                uuid: uuid // Your UUID data
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Success:', data);
+            // Success feedback for user
+            document.body.innerHTML += '<p>Email verified successfully. You may now close this window or return to the app.</p>';
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+            // Error feedback for user
+            document.body.innerHTML += '<p>There was a problem verifying your email. Please contact support.</p>';
         });
-    </script>
+    } else {
+        document.body.innerHTML += '<p>Verification code is missing.</p>';
+    }
+});
+</script>
+
 </body>
 </html>
