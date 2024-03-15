@@ -37,29 +37,22 @@ document.addEventListener("DOMContentLoaded", function() {
     const params = new URLSearchParams(window.location.search);
     const uuid = params.get('uuid');
     if (uuid) {
-        fetch('https://hooks.zapier.com/hooks/catch/16360223/30ci1xe/', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json', // This tells the server that you're sending JSON
-            },
-            body: JSON.stringify({
-                uuid: uuid // Your UUID data
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log('Success:', data);
-            // Success feedback for user
-            document.body.innerHTML += '<p>Email verified successfully. You may now close this window or return to the app.</p>';
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-            // Error feedback for user
-            document.body.innerHTML += '<p>There was a problem verifying your email. Please contact support.</p>';
-        });
-    } else {
-        document.body.innerHTML += '<p>Verification code is missing.</p>';
-    }
+        fetch('https://hooks.zapier.com/hooks/catch/XXXXXX/YYYYYY/', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ uuid: uuid })
+})
+.then(response => response.json())
+.then(data => {
+    // Success feedback for user
+    console.log('Verification successful:', data);
+    document.body.innerHTML += '<p>Email verified successfully. You may now close this window.</p>';
+})
+.catch(error => {
+    // Error handling
+    console.error('Verification failed:', error);
+    document.body.innerHTML += '<p>There was a problem verifying your email. Please try again or contact support.</p>';
+});
 });
 </script>
 </body>
