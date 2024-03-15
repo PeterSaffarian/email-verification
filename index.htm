@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Email Verification</title>
+</head>
+<body>
+    Verifying your email, please wait...
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const params = new URLSearchParams(window.location.search);
+            const uuid = params.get('uuid');
+            if (uuid) {
+                fetch('https://hooks.zapier.com/hooks/catch/16360223/30edok5/', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ uuid: uuid })
+                }).then(() => {
+                    document.body.innerHTML = 'Email verified successfully. You may now close this window or <a href="YOUR_ADALO_APP_URL">return to the app</a>.';
+                }).catch((error) => {
+                    console.error('Verification error:', error);
+                    document.body.innerHTML = 'There was a problem verifying your email. Please contact support.';
+                });
+            } else {
+                document.body.innerHTML = 'Verification code is missing.';
+            }
+        });
+    </script>
+</body>
+</html>
