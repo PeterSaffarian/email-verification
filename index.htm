@@ -3,26 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <title>Email Verification</title>
+    <style>
+        body {
+            background-color: YOUR_BACKGROUND_COLOR;
+            color: YOUR_TEXT_COLOR;
+            font-family: 'Roboto', sans-serif;
+            text-align: center;
+            padding-top: 50px;
+        }
+        
+        a, button {
+            font-family: 'Roboto', sans-serif;
+            background-color: YOUR_TEXT_COLOR;
+            color: YOUR_BACKGROUND_COLOR;
+            padding: 10px 20px;
+            text-decoration: none;
+            border: none;
+            border-radius: 5px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        a:hover, button:hover, a:active, button:active {
+            background-color: YOUR_PRIMARY_COLOR;
+            color: #ffffff;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    Verifying your email, please wait...
+    <h1>Thank you for joining Hypha</h1>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             const params = new URLSearchParams(window.location.search);
             const uuid = params.get('uuid');
             if (uuid) {
-                fetch('https://hooks.zapier.com/hooks/catch/16360223/30edok5/', {
+                fetch('YOUR_ZAPIER_WEBHOOK_URL', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ uuid: uuid })
                 }).then(() => {
-                    document.body.innerHTML = 'Email verified successfully. You may now close this window or <a href="YOUR_ADALO_APP_URL">return to the app</a>.';
+                    document.body.innerHTML += '<p>Email verified successfully. You may now close this window or <a href="YOUR_ADALO_APP_URL">return to the app</a>.</p>';
                 }).catch((error) => {
                     console.error('Verification error:', error);
-                    document.body.innerHTML = 'There was a problem verifying your email. Please contact support.';
+                    document.body.innerHTML += '<p>There was a problem verifying your email. Please contact support.</p>';
                 });
             } else {
-                document.body.innerHTML = 'Verification code is missing.';
+                document.body.innerHTML += '<p>Verification code is missing.</p>';
             }
         });
     </script>
